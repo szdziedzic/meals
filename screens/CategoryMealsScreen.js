@@ -1,12 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button, FlatList } from 'react-native';
 
 const CategoryMealsScreen = (props) => {
-  return (
-    <View style={StyleSheet.screen}>
-      <Text>The Category Meals Screen</Text>
-    </View>
-  );
+  return <FlatList numColumns={2} />;
 };
 
 const styles = StyleSheet.create({
