@@ -10,6 +10,9 @@ import { CATEGORIES, MEALS } from '../data/dummy-data';
 import { enableScreens } from 'react-native-screens';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FavouritesScreen from '../screens/FavouritesScreen';
+import { Ionicons } from '@expo/vector-icons';
 
 enableScreens();
 
@@ -17,58 +20,84 @@ const Stack = createStackNavigator();
 
 const MealsNavigator = (props) => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor:
-              Platform.OS === 'android' ? Colors.primaryColor : '',
-          },
-          headerTintColor:
-            Platform.OS === 'android' ? 'white' : Colors.primaryColor,
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
+        },
+        headerTintColor:
+          Platform.OS === 'android' ? 'white' : Colors.primaryColor,
+      }}
+    >
+      <Stack.Screen
+        name="Categories"
+        component={CategoriesScreen}
+        options={{
+          title: 'Meal Categories',
         }}
-      >
-        <Stack.Screen
-          name="Categories"
-          component={CategoriesScreen}
+      />
+      <Stack.Screen
+        name="CategoryMeals"
+        component={CategoryMealsScreen}
+        options={({ route }) => {
+          const catId = route.params.categoryId;
+          const selectedCategory = CATEGORIES.find((cat) => cat.id === catId);
+          return {
+            title: selectedCategory.title,
+          };
+        }}
+      />
+      <Stack.Screen
+        name="MealDetail"
+        component={MealDetailScreen}
+        options={({ route }) => {
+          const mealId = route.params.mealId;
+          const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+          return {
+            title: selectedMeal.title,
+            headerRight: () => (
+              <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                  title="Favourite"
+                  iconName="ios-star"
+                  onPress={() => {}}
+                />
+              </HeaderButtons>
+            ),
+          };
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const Tab = createBottomTabNavigator();
+
+const MealsFavTabNavigator = () => {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator tabBarOptions={{ activeTintColor: Colors.accentColor }}>
+        <Tab.Screen
+          name="Meals"
+          component={MealsNavigator}
           options={{
-            title: 'Meal Categories',
+            tabBarIcon: (tabInfo) => (
+              <Ionicons name="ios-restaurant" size={25} color={tabInfo.color} />
+            ),
           }}
         />
-        <Stack.Screen
-          name="CategoryMeals"
-          component={CategoryMealsScreen}
-          options={({ route }) => {
-            const catId = route.params.categoryId;
-            const selectedCategory = CATEGORIES.find((cat) => cat.id === catId);
-            return {
-              title: selectedCategory.title,
-            };
+        <Tab.Screen
+          name="Favourites"
+          component={FavouritesScreen}
+          options={{
+            tabBarIcon: (tabInfo) => (
+              <Ionicons name="ios-star" size={25} color={tabInfo.color} />
+            ),
           }}
         />
-        <Stack.Screen
-          name="MealDetail"
-          component={MealDetailScreen}
-          options={({ route }) => {
-            const mealId = route.params.mealId;
-            const selectedMeal = MEALS.find((meal) => meal.id === mealId);
-            return {
-              title: selectedMeal.title,
-              headerRight: () => (
-                <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                  <Item
-                    title="Favourite"
-                    iconName="ios-star"
-                    onPress={() => {}}
-                  />
-                </HeaderButtons>
-              ),
-            };
-          }}
-        />
-      </Stack.Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
 
-export default MealsNavigator;
+export default MealsFavTabNavigator;
