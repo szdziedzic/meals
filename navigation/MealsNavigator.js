@@ -6,8 +6,10 @@ import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
 import Colors from '../constants/Colors';
 import { Platform } from 'react-native';
-import { CATEGORIES } from '../data/dummy-data';
+import { CATEGORIES, MEALS } from '../data/dummy-data';
 import { enableScreens } from 'react-native-screens';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 
 enableScreens();
 
@@ -44,7 +46,26 @@ const MealsNavigator = (props) => {
             };
           }}
         />
-        <Stack.Screen name="MealDetail" component={MealDetailScreen} />
+        <Stack.Screen
+          name="MealDetail"
+          component={MealDetailScreen}
+          options={({ route }) => {
+            const mealId = route.params.mealId;
+            const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+            return {
+              title: selectedMeal.title,
+              headerRight: () => (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                  <Item
+                    title="Favourite"
+                    iconName="ios-star"
+                    onPress={() => {}}
+                  />
+                </HeaderButtons>
+              ),
+            };
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
