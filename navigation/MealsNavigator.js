@@ -28,17 +28,22 @@ const FiltersStack = createStackNavigator();
 
 const MainDrawer = createDrawerNavigator();
 
+const defaultStackNavOptions = {
+  headerStyle: {
+    backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
+  },
+  headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
+  headerTitleStyle: {
+    fontFamily: 'open-sans-bold',
+  },
+  headerBackTitleStyle: {
+    fontFamily: 'open-sans',
+  },
+};
+
 const MealsNavigator = (props) => {
   return (
-    <MealsStack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
-        },
-        headerTintColor:
-          Platform.OS === 'android' ? 'white' : Colors.primaryColor,
-      }}
-    >
+    <MealsStack.Navigator screenOptions={defaultStackNavOptions}>
       <MealsStack.Screen
         name="Categories"
         component={CategoriesScreen}
@@ -103,7 +108,14 @@ const Tab =
 
 const MealsFavTabNavigator = () => {
   return (
-    <Tab.Navigator tabBarOptions={{ activeTintColor: Colors.accentColor }}>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: Colors.accentColor,
+        labelStyle: {
+          fontFamily: 'open-sans-bold',
+        },
+      }}
+    >
       <Tab.Screen
         name="Meals"
         component={MealsNavigator}
@@ -128,15 +140,7 @@ const MealsFavTabNavigator = () => {
 
 const FavouritesNavigator = () => {
   return (
-    <FavouritesStack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
-        },
-        headerTintColor:
-          Platform.OS === 'android' ? 'white' : Colors.primaryColor,
-      }}
-    >
+    <FavouritesStack.Navigator screenOptions={defaultStackNavOptions}>
       <FavouritesStack.Screen
         name="Favourites"
         component={FavouritesScreen}
@@ -166,15 +170,7 @@ const FavouritesNavigator = () => {
 
 const FiltersNavigator = () => {
   return (
-    <FiltersStack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
-        },
-        headerTintColor:
-          Platform.OS === 'android' ? 'white' : Colors.primaryColor,
-      }}
-    >
+    <FiltersStack.Navigator screenOptions={defaultStackNavOptions}>
       <FiltersStack.Screen
         name="Filters"
         component={FiltersScreen}

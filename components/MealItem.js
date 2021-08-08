@@ -7,6 +7,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import Colors from '../constants/Colors';
+import DefaultText from './DefaultText';
 
 const MealItem = (props) => {
   return (
@@ -26,13 +27,15 @@ const MealItem = (props) => {
             </ImageBackground>
           </View>
           <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
-            <Text style={styles.mealDetailText}>{props.duration} min</Text>
-            <Text style={styles.mealDetailText}>
+            <DefaultText style={styles.mealDetailText}>
+              {props.duration} min
+            </DefaultText>
+            <DefaultText style={styles.mealDetailText}>
               {props.complexity.toUpperCase()}
-            </Text>
-            <Text style={styles.mealDetailText}>
+            </DefaultText>
+            <DefaultText style={styles.mealDetailText}>
               {props.affordabillity.toUpperCase()}
-            </Text>
+            </DefaultText>
           </View>
         </View>
       </TouchableOpacity>
