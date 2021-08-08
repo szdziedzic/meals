@@ -16,6 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import FiltersScreen from '../screens/FiltersScreen';
+import { color } from 'react-native-reanimated';
 
 enableScreens();
 
@@ -174,7 +175,28 @@ const FiltersNavigator = () => {
           Platform.OS === 'android' ? 'white' : Colors.primaryColor,
       }}
     >
-      <FiltersStack.Screen name="Filters" component={FiltersScreen} />
+      <FiltersStack.Screen
+        name="Filters"
+        component={FiltersScreen}
+        options={(navData) => {
+          return {
+            title: 'Filters',
+            headerLeft: () => {
+              return (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                  <Item
+                    title="Menu"
+                    iconName="ios-menu"
+                    onPress={() => {
+                      navData.navigation.toggleDrawer();
+                    }}
+                  />
+                </HeaderButtons>
+              );
+            },
+          };
+        }}
+      />
     </FiltersStack.Navigator>
   );
 };
@@ -182,12 +204,21 @@ const FiltersNavigator = () => {
 const MainNavigator = () => {
   return (
     <NavigationContainer>
-      <MainDrawer.Navigator>
-        <MainDrawer.Screen name="MealsFav" component={MealsFavTabNavigator} />
+      <MainDrawer.Navigator
+        drawerContentOptions={{
+          activeTintColor: Colors.accentColor,
+          labelStyle: { fontFamily: 'open-sans-bold' },
+        }}
+      >
+        <MainDrawer.Screen
+          name="MealsFav"
+          component={MealsFavTabNavigator}
+          options={{ drawerLabel: 'Meals' }}
+        />
         <MainDrawer.Screen
           name="Filters"
           component={FiltersNavigator}
-          options={{ title: 'Filter Meals' }}
+          options={{ drawerLabel: 'Filters' }}
         />
       </MainDrawer.Navigator>
     </NavigationContainer>
