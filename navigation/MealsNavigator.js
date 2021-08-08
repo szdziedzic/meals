@@ -163,7 +163,26 @@ const FavouritesNavigator = () => {
           };
         }}
       />
-      <FavouritesStack.Screen name="MealDetail" component={MealDetailScreen} />
+      <FavouritesStack.Screen
+        name="MealDetail"
+        component={MealDetailScreen}
+        options={({ route }) => {
+          const mealId = route.params.mealId;
+          const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+          return {
+            title: selectedMeal.title,
+            headerRight: () => (
+              <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                  title="Favourite"
+                  iconName="ios-star"
+                  onPress={() => {}}
+                />
+              </HeaderButtons>
+            ),
+          };
+        }}
+      />
     </FavouritesStack.Navigator>
   );
 };
