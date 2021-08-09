@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import DefaultText from '../components/DefaultText';
 import Colors from '../constants/Colors';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleFavourite } from '../store/actions/meals';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 
 const ListItem = (props) => {
   return (
@@ -19,9 +22,25 @@ const MealDetailScreen = (props) => {
 
   const selectedMeal = avaliableMeals.find((meal) => meal.id === mealId);
 
-  // useEffect(() => {
-  //   props.navigation.setParams({ mealTitle: selectedMeal.title });
-  // }, [selectedMeal.title]);
+  const dispatch = useDispatch();
+
+  const toggleFavouriteHandler = useCallback(() => {
+    dispatch(toggleFavourite(mealId));
+  }, [dispatch, mealId]);
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          <Item
+            title="Favourite"
+            iconName="ios-star"
+            onPress={toggleFavouriteHandler}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, [toggleFavouriteHandler]);
 
   return (
     <ScrollView>

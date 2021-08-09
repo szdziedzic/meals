@@ -81,20 +81,21 @@ const MealsNavigator = (props) => {
         name="MealDetail"
         component={MealDetailScreen}
         options={({ route }) => {
-          const mealId = route.params.mealId;
+          //const mealId = route.params.mealId;
           const mealTitle = route.params.mealTitle;
+          //const toggleFavourite = route.params.toggleFav;
           // const selectedMeal = MEALS.find((meal) => meal.id === mealId);
           return {
             title: mealTitle,
-            headerRight: () => (
-              <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item
-                  title="Favourite"
-                  iconName="ios-star"
-                  onPress={() => {}}
-                />
-              </HeaderButtons>
-            ),
+            // headerRight: () => (
+            //   <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            //     <Item
+            //       title="Favourite"
+            //       iconName="ios-star"
+            //       onPress={toggleFavourite}
+            //     />
+            //   </HeaderButtons>
+            // ),
           };
         }}
       />
