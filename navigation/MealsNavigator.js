@@ -18,7 +18,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import FiltersScreen from '../screens/FiltersScreen';
 import { color } from 'react-native-reanimated';
 
-enableScreens();
+
 
 const MealsStack = createStackNavigator();
 
