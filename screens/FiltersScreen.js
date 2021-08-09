@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Switch, Platform } from 'react-native';
 import DefaultText from '../components/DefaultText';
 import Colors from '../constants/Colors';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 
 const FilterSwitch = (props) => {
   return (
@@ -36,8 +38,18 @@ const FiltersScreen = (props) => {
   }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
 
   useEffect(() => {
-    navigation.setParams({
-      save: saveFilters,
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item
+              title="Save"
+              iconName="ios-save"
+              onPress={() => saveFilters()}
+            />
+          </HeaderButtons>
+        );
+      },
     });
   }, [saveFilters]);
 

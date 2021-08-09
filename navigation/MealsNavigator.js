@@ -209,19 +209,6 @@ const FiltersNavigator = () => {
                 </HeaderButtons>
               );
             },
-            headerRight: () => {
-              return (
-                <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                  <Item
-                    title="Save"
-                    iconName="ios-save"
-                    onPress={() => {
-                      navData.route.params.save();
-                    }}
-                  />
-                </HeaderButtons>
-              );
-            },
           };
         }}
       />
