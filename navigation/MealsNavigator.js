@@ -82,9 +82,10 @@ const MealsNavigator = (props) => {
         component={MealDetailScreen}
         options={({ route }) => {
           const mealId = route.params.mealId;
-          const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+          const mealTitle = route.params.mealTitle;
+          // const selectedMeal = MEALS.find((meal) => meal.id === mealId);
           return {
-            title: selectedMeal.title,
+            title: mealTitle,
             headerRight: () => (
               <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import { MEALS } from '../data/dummy-data';
 import DefaultText from '../components/DefaultText';
 import Colors from '../constants/Colors';
+import { useSelector } from 'react-redux';
 
 const ListItem = (props) => {
   return (
@@ -13,9 +13,15 @@ const ListItem = (props) => {
 };
 
 const MealDetailScreen = (props) => {
+  const avaliableMeals = useSelector((state) => state.meals.meals);
+
   const mealId = props.route.params.mealId;
 
-  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  const selectedMeal = avaliableMeals.find((meal) => meal.id === mealId);
+
+  // useEffect(() => {
+  //   props.navigation.setParams({ mealTitle: selectedMeal.title });
+  // }, [selectedMeal.title]);
 
   return (
     <ScrollView>
