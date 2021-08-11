@@ -20,6 +20,10 @@ const MealDetailScreen = (props) => {
 
   const mealId = props.route.params.mealId;
 
+  const isFavourite = useSelector((state) =>
+    state.meals.favoriteMeals.some((meal) => meal.id === mealId)
+  );
+
   const selectedMeal = avaliableMeals.find((meal) => meal.id === mealId);
 
   const dispatch = useDispatch();
@@ -34,13 +38,13 @@ const MealDetailScreen = (props) => {
         <HeaderButtons HeaderButtonComponent={HeaderButton}>
           <Item
             title="Favourite"
-            iconName="ios-star"
+            iconName={isFavourite ? 'ios-star' : 'ios-star-outline'}
             onPress={toggleFavouriteHandler}
           />
         </HeaderButtons>
       ),
     });
-  }, [toggleFavouriteHandler]);
+  }, [toggleFavouriteHandler, isFavourite]);
 
   return (
     <ScrollView>
