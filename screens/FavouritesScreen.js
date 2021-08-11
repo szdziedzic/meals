@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MealsList from '../components/MealsList';
 import { useSelector } from 'react-redux';
+import DefaultText from '../components/DefaultText';
 
 const FavouritesScreen = (props) => {
   const favMeals = useSelector((state) => state.meals.favoriteMeals);
@@ -9,7 +10,7 @@ const FavouritesScreen = (props) => {
   if (favMeals.length === 0 || !favMeals) {
     return (
       <View style={styles.content}>
-        <Text>No Favourite Meals Found. Start Adding some!</Text>
+        <DefaultText>No Favourite Meals Found. Start Adding some!</DefaultText>
       </View>
     );
   }
